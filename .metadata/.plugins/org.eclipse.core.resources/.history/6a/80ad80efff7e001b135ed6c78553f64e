@@ -1,0 +1,365 @@
+package snakegame_copy;
+
+import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
+import java.awt.*;
+import java.awt.event.*;
+import java.util.Vector;
+
+class HelpDialog extends JDialog{
+	JTextField tf;
+	
+	public HelpDialog(JFrame f, String title, boolean modal){
+		super(f, title, modal);
+		setLayout(new FlowLayout());
+//		add(new JLabel("이것은 뱀게임입니다."));
+		tf = new JTextField(10);
+		add(tf);
+		JButton okBtn = new JButton("OK");
+		add(okBtn);
+		okBtn.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				setVisible(false);
+			}
+		});
+		setSize(150,100);
+	}
+	int getValue(){
+		String s = tf.getText();
+		if(s.length() == 0)
+			return -1;
+		else{
+			try{
+				return Integer.parseInt(s);	
+			}catch(NumberFormatException e){
+				return -1;
+			}
+		}
+	}
+}
+public class SnakeFrame extends JFrame{
+	Thread snakeThread;
+	GroundPanel p;
+	
+	public SnakeFrame(){
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // 종료방법
+		Container c = getContentPane();
+		p = new GroundPanel(); // 메인패널 생성
+		c.add(p, BorderLayout.CENTER);	
+		setSize(400,400); // 창크기
+		createToolBar(); // 툴바
+		createMenu(); // 메뉴
+		setVisible(true); // 표시여부
+		p.requestFocus(); // 포커스 점령
+		snakeThread = new Thread(p); // 스레드 초기화
+		snakeThread.start(); // 시작
+		
+		ToolTipManager tt = ToolTipManager.sharedInstance(); // 툴팁 매니저 설저
+		tt.setInitialDelay(5); // 툴 팁 나오는 시간 설정
+		tt.setDismissDelay(2000); // 2초후 사라져라
+	}
+	
+	public void createToolBar(){ // 툴바
+		
+		JToolBar tb = new JToolBar("Snake Controllar");
+		tb.setFloatable(false); // 툴바 못움직이기 고정하기
+		
+		JButton suspendButton = new JButton("Suspend");
+		suspendButton.setToolTipText("일시중지 합니다."); // 툴 설명쓰기
+		tb.add(suspendButton);
+		
+		JButton resumeButton = new JButton("Resume");
+		resumeButton.setToolTipText("이어하기 합니다."); // 툴 설명쓰기
+		tb.add(resumeButton);
+		
+		tb.addSeparator(new Dimension(100,50));
+		JButton plusButton = new JButton("Speed : +");
+		
+		tb.add(plusButton);
+		
+		JButton minusButton = new JButton("Speed : -");
+		tb.add(minusButton);
+		
+		JButton helpButton = new JButton("HELP");
+		tb.add(helpButton);
+		
+		
+		getContentPane().add(tb,BorderLayout.NORTH);
+		
+		suspendButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				p.suspend();
+				p.requestFocus();
+			}
+		});
+		
+		resumeButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				p.resume();
+				p.requestFocus();
+			}
+		});
+		
+		plusButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				p.speedUp();
+				p.requestFocus();
+			}
+		});
+		
+		minusButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				p.speedDown();
+				p.requestFocus();
+			}
+		});
+		
+		helpButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				
+//				HelpDialog d = new HelpDialog( (JFrame)null, 
+//				"help dialog", true); // TRUE로하면 MODAL,else:modaless
+//				d.setSize(150,100);
+//				d.setVisible(true);
+//				
+//				int n = d.getValue();
+//				if(n > 0)
+//					p.setDelay(n);
+//				p.requestFocus();
+				
+				//한줄짜리 입력창
+				String s = JOptionPane.showInputDialog("Delay값을 입력하세요.");
+				int n = Integer.parseInt(s);
+				if(n > 0)
+					p.setDelay(n);
+				p.requestFocus();
+				
+			}
+		});
+	}
+	
+	public void createMenu(){ // 메뉴 등록
+		JMenuBar mb = new JMenuBar();
+		JMenu fileMenu = new JMenu("파일");
+		JMenuItem item1 = new JMenuItem("Thread Resume");
+		JMenuItem item2 = new JMenuItem("Thread Suspend");
+		JMenuItem item3 = new JMenuItem("Thread Kill");
+		JMenuItem item4 = new JMenuItem("Change Background");
+		
+		mb.add(fileMenu); // 메뉴바에 메뉴를붙여라
+		
+		fileMenu.add(item1); // 메뉴에 아이템을붙여라
+		fileMenu.add(item2);
+		fileMenu.addSeparator(); // 줄을 그어라
+		fileMenu.add(item3);
+		fileMenu.add(item4);
+		this.setJMenuBar(mb);
+		
+		item1.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				p.resume();
+			}
+		});
+		
+		item2.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				p.suspend();
+			}
+		});
+		
+		item3.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				int res = JOptionPane.showConfirmDialog(
+				null, "정말로 뱀을 잡을껍니까?","END?",JOptionPane.YES_NO_OPTION);
+				
+				if(res == JOptionPane.CLOSED_OPTION || 
+						res == JOptionPane.NO_OPTION) // 클로즈를 눌럿다면..
+					return;
+				else
+					snakeThread.interrupt(); // 인터럽트날려죽인다
+			}
+		});
+		
+		item4.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				p.suspend();
+				
+				//파일 다이얼로그 불러오기
+				JFileChooser chooser = new JFileChooser();
+				FileNameExtensionFilter filter = new FileNameExtensionFilter
+				("JPG & GIF", "gif", "jpg");
+				chooser.setFileFilter(filter); // 파일필터 지정
+				chooser.showOpenDialog(null); 
+				String path = chooser.getSelectedFile().getPath(); // 파일 경로 가져와라
+				p.setImage(new ImageIcon(path).getImage());
+								
+				p.resume();
+			}
+		});
+	}
+	
+	class GroundPanel extends JPanel implements Runnable{
+		private boolean suspendFlag = false; // true:suspend
+		
+		final static int LEFT=0;
+		final static int RIGHT =1;
+		final static int UP = 2;
+		final static int DOWN = 3;
+		
+		int delay=200;
+		
+		int direction; // 뱀의 방향
+		
+		Image img; // 이미지 객체
+		
+		SnakeBody snakeBody; // 스네이크 객체
+		
+		public GroundPanel(){
+			setLayout(null);
+			snakeBody = new SnakeBody(); // 생성자 호출
+			snakeBody.addin(this); // 현객체 뱀에 추가
+
+			direction = LEFT;
+			this.addKeyListener(new MyKeyListener()); // 리스너 지정
+			ImageIcon icon = new ImageIcon("images/back.jpg");
+			img = icon.getImage(); // 아이콘을 이미지 객체로 가져옴
+			
+		}
+		
+		public void setImage(Image img){ // 배경 변경
+			this.img = img;
+			repaint();
+		}
+		
+		public void paintComponent(Graphics g){
+			super.paintComponent(g); // 부모 페인트 호출
+			g.drawImage(img, 0,0, getWidth(), getHeight(), null); // 그림을 그려라 
+		}
+		
+		public void run(){ // 스레드 수행 함수
+			
+			while(true){
+				try{
+					checkSuspend(); // 잠자는시간이면 띵겨라
+					Thread.sleep(delay);
+					snakeBody.move(direction); // 방향대로 움직여라
+				}catch(InterruptedException e){
+					return; // 만약 리턴이없다면 죽이질못한다
+				}
+			}
+		}	
+		
+		synchronized void checkSuspend(){
+			if(suspendFlag == false){
+				return;
+			}
+			else{
+				try{
+					wait();
+				}catch(InterruptedException e){
+					return;
+				}
+			}
+		}
+		
+		void setDelay(int n){
+			delay = n;
+		}
+		
+		void speedUp() {
+			if(delay < 10)
+				return;
+			delay = delay / 2;
+		}
+		
+		void speedDown(){
+			delay = delay * 2;
+		}
+		
+		void suspend(){ // 중단
+			suspendFlag = true;
+		}
+		
+		synchronized void resume(){ // 재개
+			suspendFlag = false;
+			notify();
+		}
+		
+		class MyKeyListener extends KeyAdapter{ // 이벤트리스너
+			
+			public void keyPressed(KeyEvent e){
+				switch(e.getKeyCode()){
+				
+				case KeyEvent.VK_LEFT :
+					direction = LEFT;
+					break;
+					
+				case KeyEvent.VK_RIGHT :
+					direction = RIGHT;
+					break;
+					
+				case KeyEvent.VK_UP :
+					direction = UP;
+					break;
+
+				case KeyEvent.VK_DOWN :
+					direction = DOWN;
+					break;
+				}
+			}
+		}
+	}
+	
+	class SnakeBody{
+		Vector<JLabel> v = new Vector<JLabel>();
+		ImageIcon icon = new ImageIcon("images/head.jpg"); // 뱀 사진
+		public SnakeBody(){
+			for(int i=0;i<10;i++){ // 10개의 뱀머리 
+				JLabel la = new JLabel(icon);
+				la.setSize(20,20);
+				la.setToolTipText("전 뱀입니다."); // 마우스 올리면 툴팁띄우기
+				la.setLocation(100+i*20, 100);
+				v.add(la);
+			}
+		}
+		 
+		public void addin(JPanel p){ // 꼬리에 추가
+			for(int i=0;i<v.size();i++){
+				p.add(v.get(i));
+			}
+		}
+		
+		public void move(int direction){ // 뱀이동
+			for(int i=v.size()-1;i>0;i--){
+				JLabel b = v.get(i);
+				JLabel a = v.get(i-1);
+				b.setLocation(a.getX(), a.getY());
+			}
+			
+			JLabel head = v.get(0);
+			
+			switch(direction) { // 뱀 이동 알고리즘
+			case GroundPanel.LEFT : 
+				head.setLocation(head.getX()-10, head.getY());
+				break;
+				
+			case GroundPanel.RIGHT : 
+				head.setLocation(head.getX()+10, head.getY());
+				break;
+				
+			case GroundPanel.UP : 
+				head.setLocation(head.getX(), head.getY()-10);
+				break;
+				
+			case GroundPanel.DOWN : 
+				head.setLocation(head.getX(), head.getY()+10);
+				break;
+			}
+		}
+	}
+	
+	public static void main(String args[]){
+		new SnakeFrame();
+	}
+}

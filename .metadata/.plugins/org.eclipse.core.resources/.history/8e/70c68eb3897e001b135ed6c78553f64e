@@ -1,0 +1,13 @@
+package collection.treeset;
+
+import java.util.Iterator;
+import java.util.TreeSet;
+import collection.Member;
+
+public class MemberTreeSet {
+	private TreeSet<Member> treeset;
+	
+	public MemberTreeSet() {
+		treeset = new TreeSet<Member>();
+	}
+}

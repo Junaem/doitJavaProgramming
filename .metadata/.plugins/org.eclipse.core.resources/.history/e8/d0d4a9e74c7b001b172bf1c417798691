@@ -1,0 +1,18 @@
+package arraylist;
+
+public class DogTest {
+
+	public static void main(String[] args) {
+		Dog[] dogs = new Dog[5];
+		
+		dogs[0] = new Dog("∏€∏€¿Ã","∏ª∆º¡Ó");
+
+		for(Dog a:dogs) {
+		a.showDogInfo();
+		}
+	
+		
+		
+	}
+
+}

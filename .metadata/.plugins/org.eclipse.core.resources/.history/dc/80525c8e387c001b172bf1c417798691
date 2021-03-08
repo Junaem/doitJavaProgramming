@@ -1,0 +1,11 @@
+package template;
+
+public class CarTest {
+
+	public static void main(String[] args) {
+		AICar a = new AICar();
+		a.run();
+
+	}
+
+}

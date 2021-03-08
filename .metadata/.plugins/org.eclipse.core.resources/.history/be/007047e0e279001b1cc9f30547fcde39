@@ -1,0 +1,12 @@
+package hiding;
+
+public class StudentTest {
+
+	public static void main(String[] args) {
+		Student studentLee = new Student();
+		studentLee.stuName = "ÀÌ»ó¿ø";
+		
+		System.out.println(studentLee.stuName);
+	}
+
+}

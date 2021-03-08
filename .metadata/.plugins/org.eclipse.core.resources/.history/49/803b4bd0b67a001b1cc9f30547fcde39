@@ -1,0 +1,14 @@
+package singleton;//p196 나혼자코딩
+
+public class CarFactory {
+	private CarFactory() {}
+	private static CarFactory instance = new CarFactory();
+	private static int serialNum;
+	
+	public static getInstance() {
+		if(instance==null) {
+			CarFactory instance = new CarFactory();
+		}
+		return instance;
+	}
+}

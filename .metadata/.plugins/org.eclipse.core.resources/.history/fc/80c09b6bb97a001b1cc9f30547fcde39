@@ -1,0 +1,11 @@
+package singleton;
+
+public class Car {
+	private static int serialNum = 10000;
+	int carNum;
+	
+	public void createCar() {
+		serialNum++;
+		this.carNum = serialNum;
+	}
+}

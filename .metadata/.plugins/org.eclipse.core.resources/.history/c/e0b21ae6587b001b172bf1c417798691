@@ -1,0 +1,11 @@
+package arraylist;
+import java.util.ArrayList;
+public class DogTestArrayList {
+
+	public static void main(String[] args) {
+		ArrayList<Dog> dogs =new ArrayList<Dog>();
+		dogs.add(new Dog("¸Û¸ÛÀÌ", "Çªµé"));
+
+	}
+
+}

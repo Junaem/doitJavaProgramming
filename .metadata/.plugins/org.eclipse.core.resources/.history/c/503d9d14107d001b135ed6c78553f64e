@@ -1,0 +1,44 @@
+package object;
+
+class Student{
+	int studentID;
+	String studentName;
+	
+	public Student(int ID, String name) {
+		this.studentID = ID;
+		this.studentName = name;
+	}
+	public String toString() {
+		return studentID+","+studentName;
+	}
+}
+
+public class EqualsTest {
+	public static void main(String[] args) {
+		Student studentLee = new Student(100,"이준형");
+		Student studentLee2 = studentLee;
+		Student studentLeeS = new Student(100,"이준형");
+
+		if(studentLee==studentLee2)
+			System.out.println("1과 2 주소 같음");
+		else
+			System.out.println("1과 2 주소 다름");
+		
+		if(studentLee.equals(studentLee2))
+			System.out.println("1과 2는 동일");
+		else
+			System.out.println("1과 2는 다름");
+		
+		if(studentLee==studentLeeS)
+			System.out.println("1과 S 주소 같음");
+		else
+			System.out.println("1과 S 주소 다름");
+		
+		if(studentLee.equals(studentLeeS))
+			System.out.println("1과 S는 동일");
+		else
+			System.out.println("1과 S는 다름");
+	}
+	
+
+}

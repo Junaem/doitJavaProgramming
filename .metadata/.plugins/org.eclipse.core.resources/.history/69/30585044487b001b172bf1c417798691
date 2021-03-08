@@ -1,0 +1,19 @@
+package arraylist;
+
+public class Subject {
+	private String name;
+	private int scorePoint;
+	
+	public String getName() {
+		return name;
+	}
+	public void setName(String a) {
+		this.name = a;
+	}
+	public int getScorePoint() {
+		return scorePoint;
+	}
+	public void setScorePoint(int score) {
+		this.scorePoint = score;
+	}
+}

@@ -1,0 +1,7 @@
+package classex;
+
+public class ClassTest {
+	public static void main(String[] args) throws ClassNotFoundException {
+		
+	}
+}

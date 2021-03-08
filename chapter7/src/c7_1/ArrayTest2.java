@@ -1,0 +1,19 @@
+package c7_1;
+
+public class ArrayTest2 {
+	public static void main(String[] args) {
+		double[] data = new double[5];
+		
+		data[0] = 10.0;
+		data[1] = 20.0;
+		data[2] = 30.0;
+		
+		for(int i = 0; i < data.length; i++) {
+			data[i] = 10.0 * (1+i);
+		}
+		
+		for(int i = 0; i < data.length; i++) {
+		System.out.println(data[i]);
+		}
+	}
+}

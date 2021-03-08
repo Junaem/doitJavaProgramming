@@ -1,0 +1,7 @@
+package gameLevel_my;
+
+public class MainBoard {
+	public static void main(String []args) {
+		Player player = new Player();
+	}
+}
