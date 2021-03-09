@@ -11,7 +11,7 @@ public interface Calc {
 	int square(int num);
 	
 	default void description() {
-		System.out.println("���� ���⸦ �����մϴ�.");
+		System.out.println("정수 계산기를 구현합니다.");
 	myMethod();
 	}
 	

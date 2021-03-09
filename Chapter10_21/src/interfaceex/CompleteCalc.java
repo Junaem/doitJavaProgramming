@@ -21,13 +21,19 @@ public class CompleteCalc extends Calculator{
 	}
 	
 	public void showInfo() {
-		System.out.println("Calc ÀÎÅÍÆäÀÌ½º¸¦ ±¸ÇöÇÏ¿´½À´Ï´Ù.");
+		System.out.println("Calc ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
 	}
 
 	@Override
 	public void description() {
 		super.description();
-		System.out.println("description¿¡ ¿À¹ö¶óÀÌµå·Î Ãß°¡");
+		System.out.println("descriptionï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìµï¿½ï¿½ ï¿½ß°ï¿½");
+	}
+
+	@Override
+	public void myMethod() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }
