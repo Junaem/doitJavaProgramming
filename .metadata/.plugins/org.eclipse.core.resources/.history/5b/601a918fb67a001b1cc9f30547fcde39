@@ -1,5 +1,0 @@
-package singleton;//p196 나혼자코딩
-
-public class CarFactory {
-	
-}
