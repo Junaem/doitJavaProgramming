@@ -1,8 +1,0 @@
-package abstractex;
-
-public class NoteBook extends Computer{
-	@override
-	public void typing() {
-		System.out.println("MyNoteBook typing()");
-	}
-}

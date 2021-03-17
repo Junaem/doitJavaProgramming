@@ -1,5 +1,0 @@
-package bookshelf;
-
-public interface Queue {
-
-}

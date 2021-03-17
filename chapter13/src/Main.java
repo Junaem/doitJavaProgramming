@@ -1,25 +1,31 @@
-import java.io.*;
 import java.util.*;
 
 public class Main{
     public static void main(String[] args){
-        Scanner sc = new Scanner(System.in);
-        String num = sc.nextLine();
-        int n = Integer.parseInt(num);
-        
-        
-        for(int i=0;i<n;i++){
-            String a = sc.nextLine();
-            int pls=0;
-            int pnt=0;
-            for(int j=0;j<a.length();j++){
-                if(a.charAt(j)=='O'){
-                    pls++;
-                    pnt+=pls;
-                }else
-                    pls=0;
-            }
-            System.out.println(pnt);
-        }
+        Scanner sc= new Scanner(System.in);
+        long a = sc.nextLong();
+       calc(a);
+    }
+    
+    
+    
+    
+    public static void calc(long n) {
+    	long rsl =0;
+    	long line=0;
+    	for(long i=1;;) {
+    		if(rsl+i>=n) {
+    			break;
+    		}
+    		rsl+= i;
+    		line = i+1;
+    		i++;
+    	}
+		long lNum = line-(n-rsl);
+		long mNum = line-lNum;
+    	if(line%2==0) 
+    		System.out.println(lNum+"/"+mNum);
+    	else
+    		System.out.println(mNum+"/"+lNum);
     }
 }

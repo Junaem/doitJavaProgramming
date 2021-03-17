@@ -12,8 +12,18 @@
 		<item key="SmartImportRootWizardPage.STORE_NESTED_PROJECTS" value="true"/>
 		<item key="SmartImportRootWizardPage.STORE_CONFIGURE_NATURES" value="true"/>
 		<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+			<item value="C:\Users\junh9\OneDrive\Documents\자바\tetris"/>
+			<item value="C:\Users\junh9\OneDrive\Documents\자바\tetris\src"/>
 			<item value="C:\Users\junh9\OneDrive\Documents\자바\snakegame_clone"/>
 			<item value="C:\Users\junh9\OneDrive\Documents\자바\SnakeGame-master\SnakeGame-master"/>
+		</list>
+	</section>
+	<section name="ChooseWorkspaceDialogSettings">
+		<item key="DIALOG_X_ORIGIN" value="541"/>
+		<item key="DIALOG_Y_ORIGIN" value="209"/>
+	</section>
+	<section name="WORKBENCH_SETTINGS">
+		<list key="ENABLED_TRANSFERS">
 		</list>
 	</section>
 </section>

@@ -1,8 +1,0 @@
-package sorting_ex;
-
-public interface Sort {
-	public void ascedning(int[] a);
-	public void descending(int[] d);
-	public void description();
-	
-}

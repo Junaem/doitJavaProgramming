@@ -1,7 +1,0 @@
-package gameLevel;
-
-public abstract class Player {
-	public abstract void run();
-	public abstract void jump();
-	public abstract void turn();
-}
